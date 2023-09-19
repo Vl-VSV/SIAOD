@@ -10,7 +10,7 @@
 
 using namespace std;
 
-void firstTask() {
+void set1And15And17BitTo1() {
     int hexValue = 0x3A4;
     
     cout << "Исходное значение: 0x" << hex << hexValue << endl;
@@ -28,7 +28,7 @@ void firstTask() {
     cout << "Результат в двоичной системе: " << bitset<32>(hexValue) << endl;
 }
 
-void secondTask() {
+void set3BitFrom5To0() {
     int inputValue;
     
     cout << "Введите целое число: ";
@@ -44,7 +44,7 @@ void secondTask() {
     cout << "Результат: " << resultValue << endl;
 }
 
-void thirdTask() {
+void multiplyBy64() {
     int variable;
     
     cout << "Введите значение переменной: ";
@@ -55,7 +55,7 @@ void thirdTask() {
     cout << "Результат умножения: " << variable << endl;
 }
 
-void fourthTask() {
+void devideBy64() {
     int variable;
     
     cout << "Введите значение переменной: ";
@@ -66,7 +66,7 @@ void fourthTask() {
     cout << "Результат умножения: " << variable << endl;
 }
 
-void fifthTask() {
+void nBitTo0() {
     int variable;
     
     cout << "Введите значение переменной: ";
@@ -150,19 +150,19 @@ int main(int argc, const char * argv[]) {
 
         switch (choice) {
             case 1:
-                firstTask();
+                set1And15And17BitTo1();
                 break;
             case 2:
-                secondTask();
+                set3BitFrom5To0();
                 break;
             case 3:
-                thirdTask();
+                multiplyBy64();
                 break;
             case 4:
-                fourthTask();
+                devideBy64();
                 break;
             case 5:
-                fifthTask();
+                nBitTo0();
                 break;
             case 6: {
                 vector<int> nums = {1, 0, 5, 7, 2, 4};
