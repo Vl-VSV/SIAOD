@@ -7,11 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A43FC1BE2ABADCBA00B7D43A /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A43FC1BD2ABADCBA00B7D43A /* main.cpp */; };
 		A46651B72AAA09100047E0C2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A46651B62AAA09100047E0C2 /* main.cpp */; };
 		A46651C42AAA09320047E0C2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A46651C32AAA09320047E0C2 /* main.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		A43FC1B92ABADCBA00B7D43A /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 		A46651B12AAA09100047E0C2 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -33,6 +43,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A43FC1BB2ABADCBA00B7D43A /* Practic_2 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Practic_2; sourceTree = BUILT_PRODUCTS_DIR; };
+		A43FC1BD2ABADCBA00B7D43A /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		A46651B32AAA09100047E0C2 /* SIAOD */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SIAOD; sourceTree = BUILT_PRODUCTS_DIR; };
 		A46651B62AAA09100047E0C2 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		A46651C12AAA09320047E0C2 /* Practic_1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Practic_1; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -41,6 +53,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		A43FC1B82ABADCBA00B7D43A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A46651B02AAA09100047E0C2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -58,11 +77,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A43FC1BC2ABADCBA00B7D43A /* Practic_2 */ = {
+			isa = PBXGroup;
+			children = (
+				A43FC1BD2ABADCBA00B7D43A /* main.cpp */,
+			);
+			path = Practic_2;
+			sourceTree = "<group>";
+		};
 		A46651AA2AAA09100047E0C2 = {
 			isa = PBXGroup;
 			children = (
 				A46651B52AAA09100047E0C2 /* SIAOD */,
 				A46651C22AAA09320047E0C2 /* Practic_1 */,
+				A43FC1BC2ABADCBA00B7D43A /* Practic_2 */,
 				A46651B42AAA09100047E0C2 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -72,6 +100,7 @@
 			children = (
 				A46651B32AAA09100047E0C2 /* SIAOD */,
 				A46651C12AAA09320047E0C2 /* Practic_1 */,
+				A43FC1BB2ABADCBA00B7D43A /* Practic_2 */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -96,6 +125,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		A43FC1BA2ABADCBA00B7D43A /* Practic_2 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A43FC1C12ABADCBA00B7D43A /* Build configuration list for PBXNativeTarget "Practic_2" */;
+			buildPhases = (
+				A43FC1B72ABADCBA00B7D43A /* Sources */,
+				A43FC1B82ABADCBA00B7D43A /* Frameworks */,
+				A43FC1B92ABADCBA00B7D43A /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Practic_2;
+			productName = Practic_2;
+			productReference = A43FC1BB2ABADCBA00B7D43A /* Practic_2 */;
+			productType = "com.apple.product-type.tool";
+		};
 		A46651B22AAA09100047E0C2 /* SIAOD */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A46651BA2AAA09100047E0C2 /* Build configuration list for PBXNativeTarget "SIAOD" */;
@@ -139,6 +185,9 @@
 				BuildIndependentTargetsInParallel = 1;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
+					A43FC1BA2ABADCBA00B7D43A = {
+						CreatedOnToolsVersion = 15.0;
+					};
 					A46651B22AAA09100047E0C2 = {
 						CreatedOnToolsVersion = 14.3.1;
 					};
@@ -162,11 +211,20 @@
 			targets = (
 				A46651B22AAA09100047E0C2 /* SIAOD */,
 				A46651C02AAA09320047E0C2 /* Practic_1 */,
+				A43FC1BA2ABADCBA00B7D43A /* Practic_2 */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
+		A43FC1B72ABADCBA00B7D43A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A43FC1BE2ABADCBA00B7D43A /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A46651AF2AAA09100047E0C2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -186,6 +244,36 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		A43FC1BF2ABADCBA00B7D43A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = UV4BPKP674;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.5;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		A43FC1C02ABADCBA00B7D43A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = UV4BPKP674;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.5;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		A46651B82AAA09100047E0C2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -338,6 +426,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		A43FC1C12ABADCBA00B7D43A /* Build configuration list for PBXNativeTarget "Practic_2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A43FC1BF2ABADCBA00B7D43A /* Debug */,
+				A43FC1C02ABADCBA00B7D43A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		A46651AE2AAA09100047E0C2 /* Build configuration list for PBXProject "SIAOD" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
