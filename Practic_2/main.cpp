@@ -4,76 +4,68 @@
 //
 //  Created by Vlad V on 20.09.2023.
 //
-
 #include <iostream>
 #include <fstream>
 #include <ctime>
 #include <vector>
+#include <string>
+#include <map>
 
 using namespace std;
 
-// Структура записи
-struct PatientRecord {
-    int cardNumber;             // Номер карточки
-    int chronicDiseaseCode;     // Код хронического заболевания
-    string doctorLastName;      // Фамилия лечащего врача
-    
-    PatientRecord() {}
-    PatientRecord(int card, int code, const string& lastName) : cardNumber(card), chronicDiseaseCode(code), doctorLastName(lastName) {}
+const char fileName[] = "medical_records.dat";
+
+struct MedicalRecord {
+    int cardNumber;
+    int chronicDiseaseCode;
+    string treatingDoctorLastName;
 };
 
-// Функция для создания двоичного файла с записями
-void createBinaryFile(const string& filename, int numRecords) {
-    ofstream file(filename, ios::binary);
-    if (!file.is_open()) {
-        cerr << "Ошибка открытия файла." << endl;
+MedicalRecord generateRecord() {
+    MedicalRecord record;
+    record.cardNumber = rand() % 1000000; // Генерируем шестизначный номер карточки
+    record.chronicDiseaseCode = rand() % 100; // Генерируем код хронического заболевания (пусть будет от 0 до 99)
+    record.treatingDoctorLastName = "Doctor" + to_string(rand() % 10); // Генерируем фамилию лечащего врача
+    return record;
+}
+
+void createBinaryFile(const char* fileName, int numRecords) {
+    ofstream file(fileName, ios::binary | ios::out);
+    if (!file) {
+        cerr << "Ошибка при создании файла." << endl;
         return;
     }
-    
-    srand(static_cast<unsigned>(time(nullptr)));
-    vector<int> usedCardNumbers;
-    
-    for (int i = 0; i < numRecords; ++i) {
-        int cardNumber;
-        do {
-            cardNumber = i; //rand() % 10000; // Генерация случайных номеров карточек
-        } while (find(usedCardNumbers.begin(), usedCardNumbers.end(), cardNumber) != usedCardNumbers.end());
-        
-        usedCardNumbers.push_back(cardNumber);
-        int chronicDiseaseCode = rand() % 100;
-        string doctorLastName = "Doctor_" + to_string(i);
-        
-        PatientRecord record(cardNumber, chronicDiseaseCode, doctorLastName);
-        
-        file.write(reinterpret_cast<const char*>(&record), sizeof(record));
+
+    srand(time(nullptr));
+
+    for (int i = 0; i < numRecords; i++) {
+        MedicalRecord record = generateRecord();
+        record.cardNumber = i;
+        file.write(reinterpret_cast<const char*>(&record), sizeof(MedicalRecord));
     }
-    
+
     file.close();
 }
 
-// Функция для линейного поиска записи по ключу (номеру карточки)
-bool linearSearchByKey(const string& filename, int key, PatientRecord& result) {
-    ifstream file(filename, ios::binary);
-    if (!file.is_open()) {
-        cerr << "Ошибка открытия файла." << endl;
+bool searchBinaryFile(const char* fileName, int key, MedicalRecord& foundRecord) {
+    ifstream file(fileName, ios::binary | ios::in);
+    if (!file) {
+        cerr << "Ошибка при открытии файла." << endl;
         return false;
     }
-    
-    PatientRecord record;
-    while (file.read(reinterpret_cast<char*>(&record), sizeof(record))) {
-        if (record.cardNumber == key) {
-            result = record;
+
+    while (file.read(reinterpret_cast<char*>(&foundRecord), sizeof(MedicalRecord))) {
+        if (foundRecord.cardNumber == key) {
             file.close();
             return true;
         }
     }
-    
+
     file.close();
     return false;
 }
 
-// Функция для интерполяционного поиска записи по ключу (номеру карточки)
-bool interpolationSearchByKey(const string& filename, int key, PatientRecord& result) {
+bool interpolationSearchByKey(const string& filename, int key, MedicalRecord& result) {
     ifstream file(filename, ios::binary);
     if (!file.is_open()) {
         cerr << "Ошибка открытия файла." << endl;
@@ -84,25 +76,13 @@ bool interpolationSearchByKey(const string& filename, int key, PatientRecord& re
     long long int fileSize = file.tellg();
     file.seekg(0, ios::beg);
     
-    int recordSize = sizeof(PatientRecord);
+    int recordSize = sizeof(MedicalRecord);
     long long int numRecords = fileSize / recordSize;
-    
-    if (key < 0 || key > 9999) {
-        cerr << "Ключ находится за пределами диапазона." << endl;
-        file.close();
-        return false;
-    }
     
     long long int left = 0;
     long long int right = numRecords - 1;
     
     while (left <= right) {
-        if (key < 0 || key > 9999) {
-            cerr << "Ключ находится за пределами диапазона." << endl;
-            file.close();
-            return false;
-        }
-        
         long long int mid = left + ((key - 0) * (right - left)) / (9999 - 0);
         
         if (mid < 0 || mid >= numRecords) {
@@ -112,7 +92,7 @@ bool interpolationSearchByKey(const string& filename, int key, PatientRecord& re
         }
         
         file.seekg(mid * recordSize, ios::beg);
-        PatientRecord record;
+        MedicalRecord record;
         file.read(reinterpret_cast<char*>(&record), sizeof(record));
         
         if (record.cardNumber == key) {
@@ -131,31 +111,39 @@ bool interpolationSearchByKey(const string& filename, int key, PatientRecord& re
     return false;
 }
 
-int main(int argc, const char * argv[]) {
-    const string filename = "/Users/vladv/XCode Projects/SIAOD/Practic_2/patient_records.bin";
-    
-    // Создаем двоичный файл с записями (замените 100 на нужное количество записей)
-    createBinaryFile(filename, 100);
-    
-    int key;
-    cout << "Введите номер карточки для поиска: ";
-    cin >> key;
-    
-    PatientRecord result;
-    
-    // Выполняем линейный поиск
-    if (linearSearchByKey(filename, key, result)) {
-        cout << "Запись найдена: " << result.cardNumber << " " << result.chronicDiseaseCode << " " << result.doctorLastName << endl;
-    } else {
-        cout << "Запись не найдена." << endl;
+int main() {
+    createBinaryFile(fileName, 1000);
+    cout << "Запись в файл прошла успешно!" << endl;
+
+    MedicalRecord result;
+    int searchKey = 998;
+  
+    clock_t linearStart = clock();
+    bool resBinaryFile = searchBinaryFile(fileName, searchKey, result);
+    clock_t linearEnd = clock();
+
+    if (resBinaryFile) {
+        cout << "Найдена запись по номеру карточки " << searchKey << ": " << result.treatingDoctorLastName << endl;
     }
-    
-    // Выполняем интерполяционный поиск
-    if (interpolationSearchByKey(filename, key, result)) {
-        cout << "Запись найдена: " << result.cardNumber << " " << result.chronicDiseaseCode << " " << result.doctorLastName << endl;
-    } else {
-        cout << "Запись не найдена." << endl;
+    else {
+        cout << "Запись с номером карточки " << searchKey << " не найдена при линейном поиске." << endl;
     }
-    
+
+    cout << "Время выполнения линейного поиска: " << double(linearEnd - linearStart) / CLOCKS_PER_SEC << " секунд." << endl;
+
+  
+    clock_t interpolationStart = clock();
+    bool resInterpolationFile = interpolationSearchByKey(fileName, searchKey, result);
+    clock_t interpolationEnd = clock();
+
+    if (resInterpolationFile) {
+        cout << "Найдена запись по номеру карточки " << searchKey << ": " << result.treatingDoctorLastName << endl;
+    }
+    else {
+        cout << "Запись с номером карточки " << searchKey << " не найдена при интерполяционном поиске." << endl;
+    }
+
+    cout << "Время выполнения интерполяционного поиска: " << double(interpolationEnd - interpolationStart) / CLOCKS_PER_SEC << " секунд." << endl;
+
     return 0;
 }
